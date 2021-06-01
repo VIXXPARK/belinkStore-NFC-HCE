@@ -27,12 +27,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mAPDUMessenger: Messenger
 
-    val DataList= listOf<Message>(
-        Message("1명 입장했습니다."),
-        Message("2명 입장했습니다."),
-        Message("3명 입장했습니다."),
-        Message("4명 입장했습니다.")
-    )
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +40,9 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this,MyHostApduService::class.java)
         intent.putExtra("StoreID",auto.getString("databaseStoreId",""))
         startService(intent)
-        binding.recyclerView.layoutManager= LinearLayoutManager(this)
-        val adapter = AlarmAdapter(this, DataList)
-        binding.recyclerView.adapter=adapter
 
-
+        val actionbar = actionBar
+        actionbar?.hide()
 
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
@@ -61,8 +53,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             myHost = Intent(this, MyHostApduService::class.java)
             startService(myHost)
-            //nfcAdapter.setNdefPushMessageCallback(this::createNdefMessage, this);
-            //nfcAdapter.invokeBeam(this);
+
         }
 
     }
